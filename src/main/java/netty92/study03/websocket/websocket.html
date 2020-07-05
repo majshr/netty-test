@@ -1,0 +1,85 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>websocket</title>
+	</head>
+	<script type="text/javascript">
+		var socket;
+		if(window.WebSocket){
+			// 建立连接
+			socket = new window.WebSocket("ws://localhost:8899/ws");
+			
+			/**
+			*收到消息
+			*/
+			socket.onmessage = function(event){
+				var ta = document.getElementById('responseText');
+				ta.value = ta.value + "\n" + event.data;
+			}
+			
+			socket.onopen = function(event){
+				var ta = document.getElementById('responseText');
+				ta.value = "连接开启!" + "\n";
+			}
+			
+			socket.onclose = function(event){
+				var ta = document.getElementById('responseText');
+				ta.value = ta.value + "\n" + "连接关闭!";
+			}
+			
+			socket.onerror = function(event){
+				var ta = document.getElementById('responseText');
+				ta.value = ta.value + "\n" + "连接错误!" + event.data;
+			}
+		}else{
+			alert("浏览器不支持！");
+		}
+		
+		/**发送消息*/
+		function sendMessage(message){
+			var message = document.getElementById('sendText').value;
+			if(!window.WebSocket){
+				return;
+			}
+			alert("消息状态：" + socket.readyState);
+			// 如果socket状态为连接的话  WebSocket.open
+			if(socket.readyState == 1){
+				socket.send(message);
+			} else{
+				alert("连接尚未开启！");
+			}
+			
+		}
+		
+	</script>
+	<body>
+		<form action="">
+			<textarea id="sendText" style="width: 400px; height: 200px"></textarea>
+			<input type="button" value="发送消息" onclick="sendMessage()">
+			<h3>服务器输出：</h3>
+			<textarea id="responseText" style="width: 400px; height: 200px"></textarea>
+			<input type="button" onclick="javascript:document.getElementById('responseText').value=''" value="清空内容">
+		</form>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

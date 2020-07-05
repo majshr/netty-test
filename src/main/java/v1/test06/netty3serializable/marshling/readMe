@@ -1,0 +1,6 @@
+两个netty程序通过Marshalling进行rpc通信
+	传输的对象必须实现java序列化接口Serializable, 并且包路径一致
+	
+MarshallingCodeFactory创建netty使用Marshalling的编解码器
+
+编解码之后, 直接处理Request和Response对象

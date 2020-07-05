@@ -1,0 +1,4 @@
+Fetcher接口，方法参数为回调实现类，如果接口成功或失败，会调用传入参数的回调
+
+FetcherCallBack Fetcher接口方法, 成功或失败, 进行回调
+
